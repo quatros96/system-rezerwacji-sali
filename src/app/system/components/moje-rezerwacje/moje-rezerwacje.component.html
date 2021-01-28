@@ -1,0 +1,35 @@
+<h2>Moje rezerwacje</h2>
+<table mat-table [dataSource]="mojeRezerwacje" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="wydzial">
+        <th mat-header-cell *matHeaderCellDef> Wydział </th>
+        <td mat-cell *matCellDef="let element"> {{element.wydzial}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="numer_sali">
+        <th mat-header-cell *matHeaderCellDef> Numer sali </th>
+        <td mat-cell *matCellDef="let element"> {{element.numer_sali}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="data">
+        <th mat-header-cell *matHeaderCellDef> Data rezerwacji </th>
+        <td mat-cell *matCellDef="let element"> {{element.data_start }} {{element.data_end}}</td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="akcje">
+        <th mat-header-cell *matHeaderCellDef> Akcje </th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-raised-button>Modyfikuj rezerwacje</button>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
