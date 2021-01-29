@@ -1,0 +1,8 @@
+<mat-form-field appearance="fill">
+    <mat-label>Wydział</mat-label>
+    <mat-select>
+        <mat-option *ngFor="let wydzialy of wydzialyy" [value]="wydzialy.value">
+            {{ wydzialy.viewValue }}
+        </mat-option>
+    </mat-select>
+</mat-form-field>

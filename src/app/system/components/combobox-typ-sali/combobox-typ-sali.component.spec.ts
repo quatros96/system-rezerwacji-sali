@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { MojeAkcjeComponent } from './moje-akcje.component'
+import { ComboboxTypSaliComponent } from './combobox-typ-sali.component'
 
-describe('MojeAkcjeComponent', () => {
-    let component: MojeAkcjeComponent
-    let fixture: ComponentFixture<MojeAkcjeComponent>
+describe('ComboboxTypSaliComponent', () => {
+    let component: ComboboxTypSaliComponent
+    let fixture: ComponentFixture<ComboboxTypSaliComponent>
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [MojeAkcjeComponent],
+            declarations: [ComboboxTypSaliComponent],
         }).compileComponents()
     })
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(MojeAkcjeComponent)
+        fixture = TestBed.createComponent(ComboboxTypSaliComponent)
         component = fixture.componentInstance
         fixture.detectChanges()
     })
