@@ -13,7 +13,6 @@ import { MatNativeDateModule } from '@angular/material/core'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatIconModule } from '@angular/material/icon'
 
-
 import { SharedModule } from '../shared/shared.module'
 
 import { PanelComponent } from './pages/panel/panel.component'
@@ -27,10 +26,11 @@ import { InfoIAkcjeComponent } from './components/info-i-akcje/info-i-akcje.comp
 import { DostepnoscComponent } from './components/dostepnosc/dostepnosc.component'
 import { MojeSaleComponent } from './pages/moje-sale/moje-sale.component'
 import { ZglaszanieUsterkiComponent } from './pages/zglaszanie-usterki/zglaszanie-usterki.component'
-import { PotwierdzenieUsterkaComponent } from './pages/potwierdzenie-usterka/potwierdzenie-usterka.component';
-import { PotwierdzenieRezerwacjaComponent } from './pages/potwierdzenie-rezerwacja/potwierdzenie-rezerwacja.component';
-import { PotwierdzenieModyfikacjiComponent } from './pages/potwierdzenie-modyfikacji/potwierdzenie-modyfikacji.component';
+import { PotwierdzenieUsterkaComponent } from './pages/potwierdzenie-usterka/potwierdzenie-usterka.component'
+import { PotwierdzenieRezerwacjaComponent } from './pages/potwierdzenie-rezerwacja/potwierdzenie-rezerwacja.component'
+import { PotwierdzenieModyfikacjiComponent } from './pages/potwierdzenie-modyfikacji/potwierdzenie-modyfikacji.component'
 import { PotwierdzenieNadaniaDostepuComponent } from './pages/potwierdzenie-nadania-dostepu/potwierdzenie-nadania-dostepu.component'
+import { PasekUzytkownikaComponent } from './components/pasek-uzytkownika/pasek-uzytkownika.component'
 
 @NgModule({
     declarations: [
@@ -49,6 +49,7 @@ import { PotwierdzenieNadaniaDostepuComponent } from './pages/potwierdzenie-nada
         PotwierdzenieRezerwacjaComponent,
         PotwierdzenieModyfikacjiComponent,
         PotwierdzenieNadaniaDostepuComponent,
+        PasekUzytkownikaComponent,
     ],
     imports: [
         CommonModule,
@@ -65,5 +66,6 @@ import { PotwierdzenieNadaniaDostepuComponent } from './pages/potwierdzenie-nada
         MatCheckboxModule,
         MatIconModule,
     ],
+    exports: [PasekUzytkownikaComponent],
 })
 export class SystemModule {}
