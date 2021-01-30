@@ -17,7 +17,8 @@ import { PodgladSaliComponent } from './pages/podglad-sali/podglad-sali.componen
 import { MojeAkcjeComponent } from './components/moje-akcje/moje-akcje.component'
 import { MojeRezerwacjeComponent } from './components/moje-rezerwacje/moje-rezerwacje.component';
 import { InfoIAkcjeComponent } from './components/info-i-akcje/info-i-akcje.component';
-import { DostepnoscComponent } from './components/dostepnosc/dostepnosc.component'
+import { DostepnoscComponent } from './components/dostepnosc/dostepnosc.component';
+import { MojeSaleComponent } from './pages/moje-sale/moje-sale.component'
 
 @NgModule({
     declarations: [
@@ -28,6 +29,7 @@ import { DostepnoscComponent } from './components/dostepnosc/dostepnosc.componen
         MojeRezerwacjeComponent,
         InfoIAkcjeComponent,
         DostepnoscComponent,
+        MojeSaleComponent,
     ],
     imports: [
         CommonModule,
