@@ -1,25 +1,24 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { MojeAkcjeComponent } from './moje-akcje.component';
+import { MojeAkcjeComponent } from './moje-akcje.component'
 
 describe('MojeAkcjeComponent', () => {
-  let component: MojeAkcjeComponent;
-  let fixture: ComponentFixture<MojeAkcjeComponent>;
+    let component: MojeAkcjeComponent
+    let fixture: ComponentFixture<MojeAkcjeComponent>
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ MojeAkcjeComponent ]
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [MojeAkcjeComponent],
+        }).compileComponents()
     })
-    .compileComponents();
-  });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(MojeAkcjeComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(MojeAkcjeComponent)
+        component = fixture.componentInstance
+        fixture.detectChanges()
+    })
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    it('should create', () => {
+        expect(component).toBeTruthy()
+    })
+})
