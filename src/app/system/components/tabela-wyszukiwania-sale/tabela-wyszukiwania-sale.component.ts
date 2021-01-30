@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core'
-import { wynikiSalePodglad } from '../../../models/moja-rezerwacja-podglad'
+
+export interface wynikiSalePodglad {
+    wydzial: string
+    numer_sali: string
+}
 
 @Component({
-    selector: 'srs-wynik-wyszukiwanie-sal',
-    templateUrl: './wynik-wyszukiwanie-sal.component.html',
-    styleUrls: ['./wynik-wyszukiwanie-sal.component.less'],
+    selector: 'srs-tabela-wyszukiwania-sale',
+    templateUrl: './tabela-wyszukiwania-sale.component.html',
+    styleUrls: ['./tabela-wyszukiwania-sale.component.less'],
 })
-export class WynikWyszukiwanieSalComponent implements OnInit {
+export class TabelaWyszukiwaniaSaleComponent implements OnInit {
     displayedColumns: string[] = ['wydzial', 'numer_sali', 'akcje']
 
     mojeRezerwacje: Array<wynikiSalePodglad> = [

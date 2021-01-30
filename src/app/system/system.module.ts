@@ -18,14 +18,8 @@ import { WyszukiwarkaSalComponent } from './pages/wyszukiwarka-sal/wyszukiwarka-
 import { PodgladSaliComponent } from './pages/podglad-sali/podglad-sali.component'
 import { MojeAkcjeComponent } from './components/moje-akcje/moje-akcje.component'
 import { MojeRezerwacjeComponent } from './components/moje-rezerwacje/moje-rezerwacje.component'
-import { WynikWyszukiwanieSalComponent } from './components/wynik-wyszukiwanie-sal/wynik-wyszukiwanie-sal.component'
-import { ComboboxWydzialComponent } from './components/combobox-wydzial/combobox-wydzial.component'
-import { ComboboxTypSaliComponent } from './components/combobox-typ-sali/combobox-typ-sali.component'
-import { ComboboxPojemnoscComponent } from './components/combobox-pojemnosc/combobox-pojemnosc.component'
-import { ComboboxdatyComponent } from './components/comboboxdaty/comboboxdaty.component'
-import { NrsaliComponent } from './components/nrsali/nrsali.component'
-import { WyposazenieComponent } from './components/wyposazenie/wyposazenie.component';
-import { ButtonWyszukajComponent } from './components/button-wyszukaj/button-wyszukaj.component'
+import { ParametryWyszukiwaniaComponent } from './components/parametry-wyszukiwania/parametry-wyszukiwania.component'
+import { TabelaWyszukiwaniaSaleComponent } from './components/tabela-wyszukiwania-sale/tabela-wyszukiwania-sale.component'
 
 @NgModule({
     declarations: [
@@ -34,14 +28,8 @@ import { ButtonWyszukajComponent } from './components/button-wyszukaj/button-wys
         PodgladSaliComponent,
         MojeAkcjeComponent,
         MojeRezerwacjeComponent,
-        WynikWyszukiwanieSalComponent,
-        ComboboxWydzialComponent,
-        ComboboxTypSaliComponent,
-        ComboboxPojemnoscComponent,
-        ComboboxdatyComponent,
-        NrsaliComponent,
-        WyposazenieComponent,
-        ButtonWyszukajComponent,
+        ParametryWyszukiwaniaComponent,
+        TabelaWyszukiwaniaSaleComponent,
     ],
     imports: [
         CommonModule,
