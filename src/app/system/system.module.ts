@@ -30,7 +30,9 @@ import { ZglaszanieUsterkiComponent } from './pages/zglaszanie-usterki/zglaszani
 import { PotwierdzenieUsterkaComponent } from './pages/potwierdzenie-usterka/potwierdzenie-usterka.component';
 import { PotwierdzenieRezerwacjaComponent } from './pages/potwierdzenie-rezerwacja/potwierdzenie-rezerwacja.component';
 import { PotwierdzenieModyfikacjiComponent } from './pages/potwierdzenie-modyfikacji/potwierdzenie-modyfikacji.component';
-import { PotwierdzenieNadaniaDostepuComponent } from './pages/potwierdzenie-nadania-dostepu/potwierdzenie-nadania-dostepu.component'
+import { PotwierdzenieNadaniaDostepuComponent } from './pages/potwierdzenie-nadania-dostepu/potwierdzenie-nadania-dostepu.component';
+import { ModyfikacjaRezerwacjiComponent } from './pages/modyfikacja-rezerwacji/modyfikacja-rezerwacji.component';
+import { RezerwacjaModComponent } from './components/rezerwacja-mod/rezerwacja-mod.component'
 
 @NgModule({
     declarations: [
@@ -49,6 +51,8 @@ import { PotwierdzenieNadaniaDostepuComponent } from './pages/potwierdzenie-nada
         PotwierdzenieRezerwacjaComponent,
         PotwierdzenieModyfikacjiComponent,
         PotwierdzenieNadaniaDostepuComponent,
+        ModyfikacjaRezerwacjiComponent,
+        RezerwacjaModComponent,
     ],
     imports: [
         CommonModule,
