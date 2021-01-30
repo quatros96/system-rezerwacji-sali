@@ -1,0 +1,36 @@
+<div class="page-container">
+    <h1>Zgłaszanie usterki w sali</h1>
+    <span>Usterka</span>
+    <mat-form-field appearance="fill">
+        <mat-label>Podaj usterkę</mat-label>
+        <input matInput placeholder />
+    </mat-form-field>
+    <span>Jak poważna jest usterka?</span>
+    <mat-form-field appearance="fill">
+        <mat-label>Priorytet</mat-label>
+        <mat-select>
+            <mat-option
+                *ngFor="let priorytet of priorytety"
+                [value]="priorytet.value"
+                >{{ priorytet.viewValue }}</mat-option
+            >
+        </mat-select>
+    </mat-form-field>
+    <!-- <mat-form-field appearance="fill">
+        <mat-label>Favorite food</mat-label>
+        <mat-select>
+            <mat-option [value]="'test'"> test </mat-option>
+        </mat-select>
+    </mat-form-field> -->
+    <span>Opis usterki</span>
+    <mat-form-field appearance="fill" class="max-width">
+        <mat-label>Opis</mat-label>
+        <textarea
+            matInput
+            placeholder="Szczegółowy opis usterki"
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="5"
+        ></textarea>
+    </mat-form-field>
+    <button mat-raised-button>Potwierdź zgłoszenie usterki</button>
+</div>
