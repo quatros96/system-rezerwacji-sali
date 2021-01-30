@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "inzynieria-oprogramowani-f42f9": {
+      "hosting": {
+        "system-rezerwacji": [
+          "inzynieria-oprogramowani-f42f9"
+        ]
+      }
+    }
+  }
+}

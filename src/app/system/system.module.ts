@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common'
 import { RouterModule } from '@angular/router'
 import { MatTableModule } from '@angular/material/table'
 import { MatButtonModule } from '@angular/material/button'
+import { AngularFireModule } from '@angular/fire'
+import { AngularFireAnalyticsModule } from '@angular/fire/analytics'
+import { AngularFirestoreModule } from '@angular/fire/firestore'
+import { environment } from '../../environments/environment'
 
 import { MatSelectModule } from '@angular/material/select'
 import { MatFormFieldModule } from '@angular/material/form-field'
@@ -12,7 +16,6 @@ import { MatInputModule } from '@angular/material/input'
 import { MatNativeDateModule } from '@angular/material/core'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatIconModule } from '@angular/material/icon'
-
 
 import { SharedModule } from '../shared/shared.module'
 
@@ -31,8 +34,10 @@ import { PotwierdzenieUsterkaComponent } from './pages/potwierdzenie-usterka/pot
 import { PotwierdzenieRezerwacjaComponent } from './pages/potwierdzenie-rezerwacja/potwierdzenie-rezerwacja.component';
 import { PotwierdzenieModyfikacjiComponent } from './pages/potwierdzenie-modyfikacji/potwierdzenie-modyfikacji.component';
 import { PotwierdzenieNadaniaDostepuComponent } from './pages/potwierdzenie-nadania-dostepu/potwierdzenie-nadania-dostepu.component';
+import { PasekUzytkownikaComponent } from './components/pasek-uzytkownika/pasek-uzytkownika.component'
 import { ModyfikacjaRezerwacjiComponent } from './pages/modyfikacja-rezerwacji/modyfikacja-rezerwacji.component';
 import { RezerwacjaModComponent } from './components/rezerwacja-mod/rezerwacja-mod.component'
+
 
 @NgModule({
     declarations: [
@@ -53,6 +58,7 @@ import { RezerwacjaModComponent } from './components/rezerwacja-mod/rezerwacja-m
         PotwierdzenieNadaniaDostepuComponent,
         ModyfikacjaRezerwacjiComponent,
         RezerwacjaModComponent,
+        PasekUzytkownikaComponent,
     ],
     imports: [
         CommonModule,
@@ -62,6 +68,9 @@ import { RezerwacjaModComponent } from './components/rezerwacja-mod/rezerwacja-m
         MatFormFieldModule,
         SharedModule,
         RouterModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireAnalyticsModule,
+        AngularFirestoreModule,
         MatDatepickerModule,
         TextFieldModule,
         MatInputModule,
@@ -69,5 +78,6 @@ import { RezerwacjaModComponent } from './components/rezerwacja-mod/rezerwacja-m
         MatCheckboxModule,
         MatIconModule,
     ],
+    exports: [PasekUzytkownikaComponent],
 })
 export class SystemModule {}
