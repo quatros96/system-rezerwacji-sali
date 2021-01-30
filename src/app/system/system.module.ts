@@ -3,13 +3,16 @@ import { CommonModule } from '@angular/common'
 import { RouterModule } from '@angular/router'
 import { MatTableModule } from '@angular/material/table'
 import { MatButtonModule } from '@angular/material/button'
-import { MatDatepickerModule } from '@angular/material/datepicker'
-import { MatFormFieldModule } from '@angular/material/form-field'
-import { MatNativeDateModule } from '@angular/material/core'
-import { MatInputModule } from '@angular/material/input'
-import { MatCheckboxModule } from '@angular/material/checkbox'
+
 import { MatSelectModule } from '@angular/material/select'
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatDatepickerModule } from '@angular/material/datepicker'
+import { TextFieldModule } from '@angular/cdk/text-field'
+import { MatInputModule } from '@angular/material/input'
+import { MatNativeDateModule } from '@angular/material/core'
+import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatIconModule } from '@angular/material/icon'
+
 
 import { SharedModule } from '../shared/shared.module'
 
@@ -18,6 +21,8 @@ import { WyszukiwarkaSalComponent } from './pages/wyszukiwarka-sal/wyszukiwarka-
 import { PodgladSaliComponent } from './pages/podglad-sali/podglad-sali.component'
 import { MojeAkcjeComponent } from './components/moje-akcje/moje-akcje.component'
 import { MojeRezerwacjeComponent } from './components/moje-rezerwacje/moje-rezerwacje.component'
+import { ParametryWyszukiwaniaComponent } from './components/parametry-wyszukiwania/parametry-wyszukiwania.component'
+import { TabelaWyszukiwaniaSaleComponent } from './components/tabela-wyszukiwania-sale/tabela-wyszukiwania-sale.component'
 import { InfoIAkcjeComponent } from './components/info-i-akcje/info-i-akcje.component'
 import { DostepnoscComponent } from './components/dostepnosc/dostepnosc.component'
 import { MojeSaleComponent } from './pages/moje-sale/moje-sale.component'
@@ -34,6 +39,8 @@ import { PotwierdzenieNadaniaDostepuComponent } from './pages/potwierdzenie-nada
         PodgladSaliComponent,
         MojeAkcjeComponent,
         MojeRezerwacjeComponent,
+        ParametryWyszukiwaniaComponent,
+        TabelaWyszukiwaniaSaleComponent,
         InfoIAkcjeComponent,
         DostepnoscComponent,
         MojeSaleComponent,
@@ -47,14 +54,15 @@ import { PotwierdzenieNadaniaDostepuComponent } from './pages/potwierdzenie-nada
         CommonModule,
         MatTableModule,
         MatButtonModule,
+        MatSelectModule,
+        MatFormFieldModule,
         SharedModule,
         RouterModule,
         MatDatepickerModule,
-        MatFormFieldModule,
-        MatNativeDateModule,
+        TextFieldModule,
         MatInputModule,
+        MatNativeDateModule,
         MatCheckboxModule,
-        MatSelectModule,
         MatIconModule,
     ],
 })
