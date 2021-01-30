@@ -4,6 +4,7 @@ import { PanelComponent } from './system/pages/panel/panel.component'
 import { WyszukiwarkaSalComponent } from './system/pages/wyszukiwarka-sal/wyszukiwarka-sal.component'
 import { PodgladSaliComponent } from './system/pages/podglad-sali/podglad-sali.component'
 import { MojeSaleComponent } from './system/pages/moje-sale/moje-sale.component'
+import { ZglaszanieUsterkiComponent } from './system/pages/zglaszanie-usterki/zglaszanie-usterki.component'
 
 const routes: Routes = [
     {
@@ -21,6 +22,10 @@ const routes: Routes = [
     {
         path: 'moje-sale',
         component: MojeSaleComponent,
+    },
+    {
+        path: 'zglaszanie-usterki',
+        component: ZglaszanieUsterkiComponent,
     },
     {
         path: '**',
