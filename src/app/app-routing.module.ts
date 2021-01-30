@@ -9,11 +9,16 @@ import { PotwierdzenieUsterkaComponent } from './system/pages/potwierdzenie-uste
 import { PotwierdzenieRezerwacjaComponent } from './system/pages/potwierdzenie-rezerwacja/potwierdzenie-rezerwacja.component'
 import { PotwierdzenieModyfikacjiComponent } from './system/pages/potwierdzenie-modyfikacji/potwierdzenie-modyfikacji.component'
 import { PotwierdzenieNadaniaDostepuComponent } from './system/pages/potwierdzenie-nadania-dostepu/potwierdzenie-nadania-dostepu.component'
+import { ModyfikacjaRezerwacjiComponent } from './system/pages/modyfikacja-rezerwacji/modyfikacja-rezerwacji.component'
 
 const routes: Routes = [
     {
         path: 'panel',
         component: PanelComponent,
+    },
+    {
+        path: 'modyfikacja-rezerwacji',
+        component: ModyfikacjaRezerwacjiComponent,
     },
     {
         path: 'wyszukiwarka-sal',

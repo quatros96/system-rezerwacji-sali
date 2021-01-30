@@ -30,11 +30,14 @@ import { InfoIAkcjeComponent } from './components/info-i-akcje/info-i-akcje.comp
 import { DostepnoscComponent } from './components/dostepnosc/dostepnosc.component'
 import { MojeSaleComponent } from './pages/moje-sale/moje-sale.component'
 import { ZglaszanieUsterkiComponent } from './pages/zglaszanie-usterki/zglaszanie-usterki.component'
-import { PotwierdzenieUsterkaComponent } from './pages/potwierdzenie-usterka/potwierdzenie-usterka.component'
-import { PotwierdzenieRezerwacjaComponent } from './pages/potwierdzenie-rezerwacja/potwierdzenie-rezerwacja.component'
-import { PotwierdzenieModyfikacjiComponent } from './pages/potwierdzenie-modyfikacji/potwierdzenie-modyfikacji.component'
-import { PotwierdzenieNadaniaDostepuComponent } from './pages/potwierdzenie-nadania-dostepu/potwierdzenie-nadania-dostepu.component'
+import { PotwierdzenieUsterkaComponent } from './pages/potwierdzenie-usterka/potwierdzenie-usterka.component';
+import { PotwierdzenieRezerwacjaComponent } from './pages/potwierdzenie-rezerwacja/potwierdzenie-rezerwacja.component';
+import { PotwierdzenieModyfikacjiComponent } from './pages/potwierdzenie-modyfikacji/potwierdzenie-modyfikacji.component';
+import { PotwierdzenieNadaniaDostepuComponent } from './pages/potwierdzenie-nadania-dostepu/potwierdzenie-nadania-dostepu.component';
 import { PasekUzytkownikaComponent } from './components/pasek-uzytkownika/pasek-uzytkownika.component'
+import { ModyfikacjaRezerwacjiComponent } from './pages/modyfikacja-rezerwacji/modyfikacja-rezerwacji.component';
+import { RezerwacjaModComponent } from './components/rezerwacja-mod/rezerwacja-mod.component'
+
 
 @NgModule({
     declarations: [
@@ -53,6 +56,8 @@ import { PasekUzytkownikaComponent } from './components/pasek-uzytkownika/pasek-
         PotwierdzenieRezerwacjaComponent,
         PotwierdzenieModyfikacjiComponent,
         PotwierdzenieNadaniaDostepuComponent,
+        ModyfikacjaRezerwacjiComponent,
+        RezerwacjaModComponent,
         PasekUzytkownikaComponent,
     ],
     imports: [
