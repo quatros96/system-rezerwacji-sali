@@ -9,6 +9,7 @@ import { MatNativeDateModule } from '@angular/material/core'
 import { MatInputModule } from '@angular/material/input'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatSelectModule } from '@angular/material/select'
+import { MatIconModule } from '@angular/material/icon'
 
 import { SharedModule } from '../shared/shared.module'
 
@@ -21,6 +22,10 @@ import { InfoIAkcjeComponent } from './components/info-i-akcje/info-i-akcje.comp
 import { DostepnoscComponent } from './components/dostepnosc/dostepnosc.component'
 import { MojeSaleComponent } from './pages/moje-sale/moje-sale.component'
 import { ZglaszanieUsterkiComponent } from './pages/zglaszanie-usterki/zglaszanie-usterki.component'
+import { PotwierdzenieUsterkaComponent } from './pages/potwierdzenie-usterka/potwierdzenie-usterka.component';
+import { PotwierdzenieRezerwacjaComponent } from './pages/potwierdzenie-rezerwacja/potwierdzenie-rezerwacja.component';
+import { PotwierdzenieModyfikacjiComponent } from './pages/potwierdzenie-modyfikacji/potwierdzenie-modyfikacji.component';
+import { PotwierdzenieNadaniaDostepuComponent } from './pages/potwierdzenie-nadania-dostepu/potwierdzenie-nadania-dostepu.component'
 
 @NgModule({
     declarations: [
@@ -33,6 +38,10 @@ import { ZglaszanieUsterkiComponent } from './pages/zglaszanie-usterki/zglaszani
         DostepnoscComponent,
         MojeSaleComponent,
         ZglaszanieUsterkiComponent,
+        PotwierdzenieUsterkaComponent,
+        PotwierdzenieRezerwacjaComponent,
+        PotwierdzenieModyfikacjiComponent,
+        PotwierdzenieNadaniaDostepuComponent,
     ],
     imports: [
         CommonModule,
@@ -46,6 +55,7 @@ import { ZglaszanieUsterkiComponent } from './pages/zglaszanie-usterki/zglaszani
         MatInputModule,
         MatCheckboxModule,
         MatSelectModule,
+        MatIconModule,
     ],
 })
 export class SystemModule {}

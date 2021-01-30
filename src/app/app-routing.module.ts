@@ -5,6 +5,10 @@ import { WyszukiwarkaSalComponent } from './system/pages/wyszukiwarka-sal/wyszuk
 import { PodgladSaliComponent } from './system/pages/podglad-sali/podglad-sali.component'
 import { MojeSaleComponent } from './system/pages/moje-sale/moje-sale.component'
 import { ZglaszanieUsterkiComponent } from './system/pages/zglaszanie-usterki/zglaszanie-usterki.component'
+import { PotwierdzenieUsterkaComponent } from './system/pages/potwierdzenie-usterka/potwierdzenie-usterka.component'
+import { PotwierdzenieRezerwacjaComponent } from './system/pages/potwierdzenie-rezerwacja/potwierdzenie-rezerwacja.component'
+import { PotwierdzenieModyfikacjiComponent } from './system/pages/potwierdzenie-modyfikacji/potwierdzenie-modyfikacji.component'
+import { PotwierdzenieNadaniaDostepuComponent } from './system/pages/potwierdzenie-nadania-dostepu/potwierdzenie-nadania-dostepu.component'
 
 const routes: Routes = [
     {
@@ -26,6 +30,22 @@ const routes: Routes = [
     {
         path: 'zglaszanie-usterki',
         component: ZglaszanieUsterkiComponent,
+    },
+    {
+        path: 'potwierdzenie-usterka',
+        component: PotwierdzenieUsterkaComponent,
+    },
+    {
+        path: 'potwierdzenie-rezerwacja',
+        component: PotwierdzenieRezerwacjaComponent,
+    },
+    {
+        path: 'potwierdzenie-modyfikacji',
+        component: PotwierdzenieModyfikacjiComponent,
+    },
+    {
+        path: 'potwierdzenie-nadania-dostepu',
+        component: PotwierdzenieNadaniaDostepuComponent,
     },
     {
         path: '**',
