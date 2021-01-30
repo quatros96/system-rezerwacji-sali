@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common'
 import { RouterModule } from '@angular/router'
 import { MatTableModule } from '@angular/material/table'
 import { MatButtonModule } from '@angular/material/button'
+import { AngularFireModule } from '@angular/fire'
+import { AngularFireAnalyticsModule } from '@angular/fire/analytics'
+import { AngularFirestoreModule } from '@angular/fire/firestore'
+import { environment } from '../../environments/environment'
 
 import { SharedModule } from '../shared/shared.module'
 
@@ -26,6 +30,9 @@ import { MojeRezerwacjeComponent } from './components/moje-rezerwacje/moje-rezer
         MatButtonModule,
         SharedModule,
         RouterModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireAnalyticsModule,
+        AngularFirestoreModule,
     ],
 })
 export class SystemModule {}

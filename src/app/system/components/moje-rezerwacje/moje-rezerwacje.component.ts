@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { rezerwacjaPodglad } from '../../../models/moja-rezerwacja-podglad'
+import { DataBaseService } from '../../../core/services/data-base.service'
 
 @Component({
     selector: 'srs-moje-rezerwacje',
@@ -8,7 +9,8 @@ import { rezerwacjaPodglad } from '../../../models/moja-rezerwacja-podglad'
 })
 export class MojeRezerwacjeComponent implements OnInit {
     displayedColumns: string[] = ['wydzial', 'numer_sali', 'data', 'akcje']
-
+    daneTestowe: any
+    daneFiltr: any
     mojeRezerwacje: Array<rezerwacjaPodglad> = [
         {
             wydzial: 'Mechatroniki',
@@ -48,7 +50,16 @@ export class MojeRezerwacjeComponent implements OnInit {
         },
     ]
 
-    constructor() {}
+    constructor(private dataBase: DataBaseService) {
+        this.dataBase.getDane().subscribe((dane) => {
+            this.daneTestowe = dane
+            console.log(dane)
+        })
+        this.dataBase.getUserReservations().subscribe((dane) => {
+            this.daneFiltr = dane
+            console.log(dane)
+        })
+    }
 
     ngOnInit(): void {}
 }
