@@ -34,6 +34,7 @@ import { PotwierdzenieUsterkaComponent } from './pages/potwierdzenie-usterka/pot
 import { PotwierdzenieRezerwacjaComponent } from './pages/potwierdzenie-rezerwacja/potwierdzenie-rezerwacja.component'
 import { PotwierdzenieModyfikacjiComponent } from './pages/potwierdzenie-modyfikacji/potwierdzenie-modyfikacji.component'
 import { PotwierdzenieNadaniaDostepuComponent } from './pages/potwierdzenie-nadania-dostepu/potwierdzenie-nadania-dostepu.component'
+import { PasekUzytkownikaComponent } from './components/pasek-uzytkownika/pasek-uzytkownika.component'
 
 @NgModule({
     declarations: [
@@ -52,6 +53,7 @@ import { PotwierdzenieNadaniaDostepuComponent } from './pages/potwierdzenie-nada
         PotwierdzenieRezerwacjaComponent,
         PotwierdzenieModyfikacjiComponent,
         PotwierdzenieNadaniaDostepuComponent,
+        PasekUzytkownikaComponent,
     ],
     imports: [
         CommonModule,
@@ -71,5 +73,6 @@ import { PotwierdzenieNadaniaDostepuComponent } from './pages/potwierdzenie-nada
         MatCheckboxModule,
         MatIconModule,
     ],
+    exports: [PasekUzytkownikaComponent],
 })
 export class SystemModule {}
