@@ -1,36 +1,34 @@
 <main>
     <p>rezerwacja-mod works!</p>
     <section>
-        <table
-            class="tabela_rezerwacja"
-            mat-table
-            [dataSource]="mojeRezerwacje1"
-            class="mat-elevation-z8"
-        >
+        <table class="tabela_rezerwacja" mat-table [dataSource]="rezerwacjaUzytkownika" class="mat-elevation-z8">
             <!--- Note that these columns can be defined in any order.
                   The actual rendered columns are set as a property on the row definition" -->
 
             <!-- Position Column -->
             <ng-container matColumnDef="wydzial">
                 <th mat-header-cell *matHeaderCellDef>Wydział</th>
-                <td mat-cell *matCellDef="let element">
-                    {{ element.wydzial }}
+                <td mat-cell *matCellDef="let rezerwacja">
+                    {{ rezerwacja.wydzial }}
                 </td>
             </ng-container>
 
             <!-- Name Column -->
             <ng-container matColumnDef="numer_sali">
                 <th mat-header-cell *matHeaderCellDef>Numer sali</th>
-                <td mat-cell *matCellDef="let element">
-                    {{ element.numer_sali }}
+                <td mat-cell *matCellDef="let rezerwacja">
+                    {{ rezerwacja.sala_nr }}
                 </td>
             </ng-container>
 
             <!-- Weight Column -->
             <ng-container matColumnDef="data">
                 <th mat-header-cell *matHeaderCellDef>Data rezerwacji</th>
-                <td mat-cell *matCellDef="let element">
-                    {{ element.data_start }} {{ element.data_end }}
+                <td mat-cell *matCellDef="let rezerwacja">
+                    <!-- {{rezerwacja.poczatek.seconds * 1000 | date:'dd/MM/YYYY HH:mm'}} - {{rezerwacja.koniec.seconds *
+                    1000 |
+                    date:'HH:mm'}} -->
+                    {{rezerwacja.dzien}} {{rezerwacja.poczatek}}:00 - {{rezerwacja.koniec}}:00
                 </td>
             </ng-container>
 
@@ -42,25 +40,21 @@
         <div class="zmien">
             <h2>Zmień godzine rezerwacji</h2>
 
-            <table
-                mat-table
-                [dataSource]="mojeRezerwacje"
-                class="mat-elevation-z8"
-            >
+            <table mat-table [dataSource]="mojeRezerwacje" class="mat-elevation-z8">
                 <!--- Note that these columns can be defined in any order.
                       The actual rendered columns are set as a property on the row definition" -->
 
                 <!-- Weight Column -->
                 <ng-container matColumnDef="godzina">
-                    <th mat-header-cell *matHeaderCellDef>Data</th>
+                    <th mat-header-cell *matHeaderCellDef>Godzina</th>
                     <td mat-cell *matCellDef="let element">
-                        {{ element.godzina }}
+                        {{ element.godzinaOd }}:00 - {{element.godzinaDo}}:00
                     </td>
                 </ng-container>
 
                 <!-- Position Column -->
                 <ng-container matColumnDef="status">
-                    <th mat-header-cell *matHeaderCellDef>Wydział</th>
+                    <th mat-header-cell *matHeaderCellDef>Status</th>
                     <td mat-cell *matCellDef="let element">
                         {{ element.status }}
                     </td>
@@ -69,27 +63,24 @@
                 <!-- Symbol Column -->
                 <ng-container matColumnDef="akcje">
                     <th mat-header-cell *matHeaderCellDef>Wybór</th>
-                    <td mat-cell *matCellDef="let element">
-                        <mat-checkbox
-                            class="checkBoxKlimatyzacjian"
-                        ></mat-checkbox>
+                    <td mat-cell *matCellDef="let element;let i = index;">
+                        <mat-checkbox class="checkBoxKlimatyzacjian" [disabled]='element.status == "Zajęta"'
+                            [checked]="stanCheckboxow[i]" [(ngModel)]="stanCheckboxow[i]">
+                        </mat-checkbox>
                     </td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr
-                    mat-row
-                    *matRowDef="let row; columns: displayedColumns"
-                ></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
             </table>
         </div>
     </section>
     <section>
-        <button class="buttonAnuluj" mat-raised-button>
+        <button class="buttonAnuluj" mat-raised-button (click)="anulujRezerwacje()">
             Anuluj rezerwacje
         </button>
 
-        <button class="buttonZmien" mat-raised-button>
+        <button class="buttonZmien" mat-raised-button (click)="zmienRezerwacje()">
             Zmien godzine rezerwacji
         </button>
     </section>

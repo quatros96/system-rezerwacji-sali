@@ -6,20 +6,22 @@
     <!-- Position Column -->
     <ng-container matColumnDef="wydzial">
         <th mat-header-cell *matHeaderCellDef>Wydział</th>
-        <td mat-cell *matCellDef="let sala">{{ sala.przynaleznosc }}</td>
+        <td mat-cell *matCellDef="let sala">{{ sala.wydzial }}</td>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="numer_sali">
         <th mat-header-cell *matHeaderCellDef>Numer sali</th>
-        <td mat-cell *matCellDef="let sala">{{ sala.numer }}</td>
+        <td mat-cell *matCellDef="let sala">{{ sala.sala_nr }}</td>
     </ng-container>
 
     <!-- Weight Column -->
     <ng-container matColumnDef="data">
         <th mat-header-cell *matHeaderCellDef>Data rezerwacji</th>
         <td mat-cell *matCellDef="let sala">
-            data rezerwacji z przedzialem godzin
+            <!-- {{sala.poczatek.seconds * 1000 | date:'dd/MM/YYYY HH:mm'}} - {{sala.koniec.seconds * 1000 |
+            date:'HH:mm'}} -->
+            {{sala.dzien}} {{sala.poczatek}}:00 - {{sala.koniec}}:00
         </td>
     </ng-container>
 
@@ -27,7 +29,8 @@
     <ng-container matColumnDef="akcje">
         <th mat-header-cell *matHeaderCellDef>Akcje</th>
         <td mat-cell *matCellDef="let sala">
-            <button mat-raised-button>Modyfikuj rezerwacje</button>
+            <button mat-raised-button [routerLink]="['/modyfikacja-rezerwacji']" [state]="{data: sala}">Modyfikuj
+                rezerwacje</button>
         </td>
     </ng-container>
 
