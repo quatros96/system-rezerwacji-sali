@@ -2,34 +2,15 @@ import { Injectable } from '@angular/core'
 import { AngularFireDatabase } from '@angular/fire/database'
 import { Observable, pipe } from 'rxjs'
 import { map, filter, tap } from 'rxjs/operators'
+import { Sala } from '../../models/sala'
 
-interface Equipment {
-    klima: boolean
-    komp: boolean
-    rzutnik: boolean
-    tab: boolean
-    [key: string]: boolean
-}
-
-interface Godzina {
+interface rezerwacjaUzytkownika {
+    wydzial: string
+    numer: number
+    data: string
     godzinaOd: number
     godzinaDo: number
-    rezerwacjaUserID: number
-}
-
-interface Rezerwacja {
-    date: string
-    godziny: Array<Godzina>
-}
-
-interface Sala {
-    numer: number
-    opiekunid: number
-    poj: number
-    przynaleznosc: string
-    typ: string
-    eq: Equipment
-    rezerwacje: Array<Rezerwacja>
+    sala: Sala
 }
 
 @Injectable({
@@ -207,3 +188,9 @@ export class DataBaseService {
         return wyniki
     }
 }
+
+//potrzebuje łatwo wyciagać rezerwacje uzytkownika (wydzial, nr sali, data) i potrzebny od tego
+//dostęp do modyfikacji rezerwacji
+//aby modyfikowac rezerwacje potrzebne mi wolne i zajęte terminy w konkretnym dniu dla konkretnej sali
+//aby wyswietlic sale potrzebne mi wszystkie informacje i latwy dostep do rezerwacji w konkretne dni
+//w wyszukiwaniu sali potrzebuje wyszukiwac po wydzial, typ, pojemnosc, numer, i dostepnosci danego dnia i wyposazenia
