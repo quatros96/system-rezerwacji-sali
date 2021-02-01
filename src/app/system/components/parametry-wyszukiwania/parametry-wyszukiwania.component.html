@@ -1,12 +1,9 @@
-<main>
+<form [formGroup]="wyszukiwanieForm">
     <section>
         <mat-form-field appearance="fill">
             <mat-label>Wydział</mat-label>
-            <mat-select>
-                <mat-option
-                    *ngFor="let wydzialy of wydzialyy"
-                    [value]="wydzialy.value"
-                >
+            <mat-select formControlName="wydzial">
+                <mat-option *ngFor="let wydzialy of wydzialyy" [value]="wydzialy.value">
                     {{ wydzialy.viewValue }}
                 </mat-option>
             </mat-select>
@@ -14,52 +11,29 @@
 
         <mat-form-field appearance="fill">
             <mat-label>Typ sali</mat-label>
-            <mat-select>
+            <mat-select formControlName="typSali">
                 <mat-option *ngFor="let typ of typy" [value]="typ.value">
                     {{ typ.viewValue }}
                 </mat-option>
             </mat-select>
         </mat-form-field>
     </section>
-    <h2>Pojemonosc</h2>
+    <h2>Pojemoność</h2>
     <section>
         <div id="od">
             <p>Od</p>
             <mat-form-field class="comboboxLiczba" appearance="fill">
                 <mat-label>Liczba</mat-label>
-                <mat-select>
-                    <mat-option
-                        *ngFor="let liczby of zbior"
-                        [value]="liczby.value"
-                    >
-                        {{ liczby.viewValue }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <div id="do">
-            <p>Do</p>
-            <mat-form-field class="comboboxLiczba" appearance="fill">
-                <mat-label>Liczba</mat-label>
-                <mat-select>
-                    <mat-option
-                        *ngFor="let liczby of zbior"
-                        [value]="liczby.value"
-                    >
-                        {{ liczby.viewValue }}
-                    </mat-option>
-                </mat-select>
+                <input matInput formControlName="pojemnosc" type="number" placeholder="" value="" />
             </mat-form-field>
         </div>
     </section>
     <h2>Nr sali</h2>
     <section>
-        <form class="example-form">
-            <mat-form-field class="nrSali" appearance="fill">
-                <mat-label>Nr sali</mat-label>
-                <input matInput placeholder="" value="" />
-            </mat-form-field>
-        </form>
+        <mat-form-field class="nrSali" appearance="fill">
+            <mat-label>Nr sali</mat-label>
+            <input matInput formControlName="numerSali" placeholder="" value="" />
+        </mat-form-field>
     </section>
     <h2>Data</h2>
     <section>
@@ -67,11 +41,8 @@
             <p>data</p>
             <mat-form-field class="dataField" appearance="fill">
                 <mat-label>Choose a date</mat-label>
-                <input matInput [matDatepicker]="picker" />
-                <mat-datepicker-toggle
-                    matSuffix
-                    [for]="picker"
-                ></mat-datepicker-toggle>
+                <input matInput formControlName="data" [matDatepicker]="picker" />
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
         </div>
@@ -79,11 +50,8 @@
             <p>Od</p>
             <mat-form-field class="comboboxLiczbaPojemnosc" appearance="fill">
                 <mat-label>Godzina</mat-label>
-                <mat-select>
-                    <mat-option
-                        *ngFor="let liczby of zbior"
-                        [value]="liczby.value"
-                    >
+                <mat-select formControlName="godzinaOd">
+                    <mat-option *ngFor="let liczby of zbior" [value]="liczby.value">
                         {{ liczby.viewValue }}
                     </mat-option>
                 </mat-select>
@@ -93,11 +61,8 @@
             <p>Do</p>
             <mat-form-field class="comboboxLiczbaPojemnosc" appearance="fill">
                 <mat-label>Godzina</mat-label>
-                <mat-select>
-                    <mat-option
-                        *ngFor="let liczby of zbior"
-                        [value]="liczby.value"
-                    >
+                <mat-select formControlName="godzinaDo">
+                    <mat-option *ngFor="let liczby of zbior" [value]="liczby.value">
                         {{ liczby.viewValue }}
                     </mat-option>
                 </mat-select>
@@ -108,26 +73,20 @@
         <div id="checkBox">
             <h2>Wyposazenie</h2>
             <section class="checkBox">
-                <mat-checkbox class="checkBoxRzutnik">Rzutnik!</mat-checkbox>
-            </section>
-
-            <section class="checkBox">
-                <mat-checkbox class="checkBoxKlimatyzacjian"
-                    >Klimatyzacjia!</mat-checkbox
-                >
+                <mat-checkbox formControlName="rzutnik" class="checkBoxRzutnik">Rzutnik</mat-checkbox>
             </section>
             <section class="checkBox">
-                <mat-checkbox class="checkBoxKomputer">Komputer!</mat-checkbox>
+                <mat-checkbox formControlName="klimatyzacja" class="checkBoxKlimatyzacjian">Klimatyzacjia</mat-checkbox>
             </section>
             <section class="checkBox">
-                <mat-checkbox class="checkBoxTablica">Tablica!</mat-checkbox>
+                <mat-checkbox formControlName="komputer" class="checkBoxKomputer">Komputer</mat-checkbox>
             </section>
             <section class="checkBox">
-                <mat-checkbox class="checkBoxInne">Inne!</mat-checkbox>
+                <mat-checkbox formControlName="tablica" class="checkBoxTablica">Tablica</mat-checkbox>
             </section>
         </div>
         <div id="buttonWyszukaj">
-            <button class="buttonWyszukaj" mat-raised-button>Wyszukaj</button>
+            <button class="buttonWyszukaj" mat-raised-button (click)="wyszukajSale()">Wyszukaj</button>
         </div>
     </section>
-</main>
+</form>

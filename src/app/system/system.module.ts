@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button'
 import { AngularFireModule } from '@angular/fire'
 import { AngularFireAnalyticsModule } from '@angular/fire/analytics'
 import { AngularFirestoreModule } from '@angular/fire/firestore'
+import { ReactiveFormsModule } from '@angular/forms'
 import { environment } from '../../environments/environment'
 
 import { MatSelectModule } from '@angular/material/select'
@@ -78,6 +79,7 @@ import { FormsModule } from '@angular/forms'
         MatCheckboxModule,
         MatIconModule,
         FormsModule,
+        ReactiveFormsModule,
     ],
     exports: [PasekUzytkownikaComponent],
 })
