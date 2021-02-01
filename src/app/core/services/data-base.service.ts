@@ -64,6 +64,94 @@ export class DataBaseService {
     public deleteReservation(idRezerwacji: string): void {
         this.afs.doc(`rezerwacje/${idRezerwacji}`).delete()
     }
+
+    //pierwszy warunek
+    public filterByAvailabilityNKIP(
+        data: string,
+        odH: number,
+        doH: number
+    ): Observable<any> {
+        let rezerwacje = this.afs.collection('rezerwacje', (ref) => {
+            return ref.where('dzien', '==', data).where('poczatek', '<', doH)
+        })
+        return rezerwacje.valueChanges()
+    }
+    public filterByAvailabilityNKIK(
+        data: string,
+        odH: number,
+        doH: number
+    ): Observable<any> {
+        let rezerwacje = this.afs.collection('rezerwacje', (ref) => {
+            return ref.where('dzien', '==', data).where('koniec', '>=', doH)
+        })
+        return rezerwacje.valueChanges()
+    }
+
+    //drugi warunek
+    public filterByAvailabilityNPIP(
+        data: string,
+        odH: number,
+        doH: number
+    ): Observable<any> {
+        let rezerwacje = this.afs.collection('rezerwacje', (ref) => {
+            return ref.where('dzien', '==', data).where('poczatek', '<=', odH)
+        })
+        return rezerwacje.valueChanges()
+    }
+    public filterByAvailabilityNKIK2(
+        data: string,
+        odH: number,
+        doH: number
+    ): Observable<any> {
+        let rezerwacje = this.afs.collection('rezerwacje', (ref) => {
+            return ref.where('dzien', '==', data).where('koniec', '>=', doH)
+        })
+        return rezerwacje.valueChanges()
+    }
+
+    //trzeci warunek
+    public filterByAvailabilityNPIP2(
+        data: string,
+        odH: number,
+        doH: number
+    ): Observable<any> {
+        let rezerwacje = this.afs.collection('rezerwacje', (ref) => {
+            return ref.where('dzien', '==', data).where('poczatek', '<=', odH)
+        })
+        return rezerwacje.valueChanges()
+    }
+    public filterByAvailabilityNPIK(
+        data: string,
+        odH: number,
+        doH: number
+    ): Observable<any> {
+        let rezerwacje = this.afs.collection('rezerwacje', (ref) => {
+            return ref.where('dzien', '==', data).where('koniec', '>', odH)
+        })
+        return rezerwacje.valueChanges()
+    }
+
+    //czwarty warunek
+    public filterByAvailabilityNPIP3(
+        data: string,
+        odH: number,
+        doH: number
+    ): Observable<any> {
+        let rezerwacje = this.afs.collection('rezerwacje', (ref) => {
+            return ref.where('dzien', '==', data).where('poczatek', '>', odH)
+        })
+        return rezerwacje.valueChanges()
+    }
+    public filterByAvailabilityNKIK3(
+        data: string,
+        odH: number,
+        doH: number
+    ): Observable<any> {
+        let rezerwacje = this.afs.collection('rezerwacje', (ref) => {
+            return ref.where('dzien', '==', data).where('koniec', '<', doH)
+        })
+        return rezerwacje.valueChanges()
+    }
     //     public getUserReservations(userid: number = 123456): Observable<any> {
     //         return this.firedb
     //             .object('sale')
