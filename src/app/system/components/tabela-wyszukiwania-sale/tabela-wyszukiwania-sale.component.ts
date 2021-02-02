@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core'
+import { DataStoreService } from '../../../core/services/data-store.service'
+import { Subscription } from 'rxjs'
+import { Sala } from 'app/models/sala'
 
 export interface wynikiSalePodglad {
     wydzial: string
@@ -13,34 +16,13 @@ export interface wynikiSalePodglad {
 export class TabelaWyszukiwaniaSaleComponent implements OnInit {
     displayedColumns: string[] = ['wydzial', 'numer_sali', 'akcje']
 
-    mojeRezerwacje: Array<wynikiSalePodglad> = [
-        {
-            wydzial: 'Mechatroniki',
-            numer_sali: '69',
-        },
-        {
-            wydzial: 'Mechatroniki',
-            numer_sali: '69',
-        },
-        {
-            wydzial: 'Mechatroniki',
-            numer_sali: '69',
-        },
-        {
-            wydzial: 'Mechatroniki',
-            numer_sali: '69',
-        },
-        {
-            wydzial: 'Mechatroniki',
-            numer_sali: '69',
-        },
-        {
-            wydzial: 'Mechatroniki',
-            numer_sali: '69',
-        },
-    ]
+    saleWyniki: Array<Sala> = []
+    subscription: Subscription | undefined
+    constructor(private dataStore: DataStoreService) {}
 
-    constructor() {}
-
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.subscription = this.dataStore.currentMessage.subscribe((dane) => {
+            this.saleWyniki = dane
+        })
+    }
 }

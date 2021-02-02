@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { SharedModule } from './shared/shared.module'
 
 import { SystemModule } from './system/system.module'
+import { MAT_DATE_LOCALE } from '@angular/material/core'
 
 @NgModule({
     declarations: [AppComponent],
@@ -21,7 +22,7 @@ import { SystemModule } from './system/system.module'
         SystemModule,
         AngularFireModule.initializeApp(environment.firebase),
     ],
-    providers: [],
+    providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -4,8 +4,8 @@ import {
     AngularFirestoreCollection,
     AngularFirestoreDocument,
 } from '@angular/fire/firestore'
-import { Observable, pipe } from 'rxjs'
-import { map, filter, tap } from 'rxjs/operators'
+import { Observable, of, pipe } from 'rxjs'
+import { map, mergeMap } from 'rxjs/operators'
 import { Sala } from '../../models/sala'
 
 interface rezerwacjaUzytkownika {
@@ -64,169 +64,273 @@ export class DataBaseService {
     public deleteReservation(idRezerwacji: string): void {
         this.afs.doc(`rezerwacje/${idRezerwacji}`).delete()
     }
-    //     public getUserReservations(userid: number = 123456): Observable<any> {
-    //         return this.firedb
-    //             .object('sale')
-    //             .valueChanges()
-    //             .pipe(
-    //                 map((dane: any) => {
-    //                     let wyniki: any[] = []
-    //                     for (let sala of dane) {
-    //                         for (let rezerwacja of sala.rezerwacje) {
-    //                             for (let godzina of rezerwacja.godziny) {
-    //                                 if (godzina.rezerwacjaUserID === userid) {
-    //                                     if (!wyniki.includes(sala)) {
-    //                                         wyniki.push(sala)
-    //                                     }
-    //                                 }
-    //                             }
-    //                         }
-    //                     }
-    //                     return wyniki
-    //                 })
-    //             )
-    //     }
-    //     public getFilteredRooms(
-    //         wydzial: string,
-    //         typSali: string,
-    //         pojemnosc: Array<number>,
-    //         numerSali: number,
-    //         dzien: Date,
-    //         godziny: Array<number>,
-    //         equipment: Array<string>
-    //     ): Observable<any> {
-    //         return this.firedb
-    //             .object('sale')
-    //             .valueChanges()
-    //             .pipe(
-    //                 map((dane: any) => {
-    //                     let wyniki: any[] = []
-    //                     for (let sala of dane) {
-    //                         for (let rezerwacja of sala.rezerwacje) {
-    //                             for (let godzina of rezerwacja) {
-    //                                 if (true) {
-    //                                     if (!wyniki.includes(sala)) {
-    //                                         wyniki.push(sala)
-    //                                     }
-    //                                 }
-    //                             }
-    //                         }
-    //                     }
-    //                     return wyniki
-    //                 })
-    //             )
-    //     }
 
-    //     private filterWydzial(sale: Array<Sala>, wydzial: string): Array<Sala> {
-    //         let wyniki: Array<Sala> = []
-    //         for (let sala of sale) {
-    //             if (sala.przynaleznosc === wydzial) {
-    //                 if (!wyniki.includes(sala)) {
-    //                     wyniki.push(sala)
-    //                 }
-    //             }
-    //         }
-    //         return wyniki
-    //     }
+    public searchForRoom(
+        wydzial: string,
+        typSali: string,
+        pojemnosc: number,
+        numerSali: string
+    ): Observable<any> {
+        let sale = this.afs
+            .collection('sale', (ref) => {
+                let query: any = ref
+                if (wydzial) {
+                    query = query.where('wydzial', '==', wydzial)
+                    console.log('szukanie po wydziale pole wydzial ==', wydzial)
+                }
+                if (typSali) {
+                    query = query.where('typ', '==', typSali)
+                }
+                if (pojemnosc) {
+                    query = query.where('pojemnosc', '>=', pojemnosc)
+                }
+                if (numerSali) {
+                    query = query.where('numer', '==', numerSali)
+                }
+                return query
+            })
+            .valueChanges()
+        return sale
+    }
 
-    //     private filterTypSali(sale: Array<Sala>, typ: string): Array<Sala> {
-    //         let wyniki: Array<Sala> = []
-    //         for (let sala of sale) {
-    //             if (sala.typ === typ) {
-    //                 if (!wyniki.includes(sala)) {
-    //                     wyniki.push(sala)
-    //                 }
-    //             }
-    //         }
-    //         return wyniki
-    //     }
+    public filterReservationsByDayAndTime(
+        data: string,
+        odH: number,
+        doH: number
+    ): Observable<string[]> {
+        let pierwszyWarunek1: Array<testRezerwacja> = []
+        let pierwszyWarunek2: Array<testRezerwacja> = []
+        let drugiWarunek1: Array<testRezerwacja> = []
+        let drugiWarunek2: Array<testRezerwacja> = []
+        let trzeciWarunek1: Array<testRezerwacja> = []
+        let trzeciWarunek2: Array<testRezerwacja> = []
+        let czwartyWarunek1: Array<testRezerwacja> = []
+        let czwartyWarunek2: Array<testRezerwacja> = []
 
-    //     private filterPojemnosc(
-    //         sale: Array<Sala>,
-    //         odpoj: number,
-    //         dopoj: number
-    //     ): Array<Sala> {
-    //         let wyniki: Array<Sala> = []
-    //         for (let sala of sale) {
-    //             if (sala.poj >= odpoj && sala.poj <= dopoj) {
-    //                 if (!wyniki.includes(sala)) {
-    //                     wyniki.push(sala)
-    //                 }
-    //             }
-    //         }
-    //         return wyniki
-    //     }
+        return this.filterByAvailabilityNKIP(data, odH, doH)
+            .pipe(
+                mergeMap((data1) => {
+                    pierwszyWarunek1 = data1
+                    return this.filterByAvailabilityNKIK(data, odH, doH)
+                }),
+                mergeMap((data2) => {
+                    pierwszyWarunek2 = data2
+                    return this.filterByAvailabilityNPIP(data, odH, doH)
+                }),
+                mergeMap((data3) => {
+                    drugiWarunek1 = data3
+                    return this.filterByAvailabilityNKIK2(data, odH, doH)
+                }),
+                mergeMap((data4) => {
+                    drugiWarunek2 = data4
+                    return this.filterByAvailabilityNPIP2(data, odH, doH)
+                }),
+                mergeMap((data5) => {
+                    trzeciWarunek1 = data5
+                    return this.filterByAvailabilityNPIK(data, odH, doH)
+                }),
+                mergeMap((data6) => {
+                    trzeciWarunek2 = data6
+                    return this.filterByAvailabilityNPIP3(data, odH, doH)
+                }),
+                mergeMap((data7) => {
+                    czwartyWarunek1 = data7
+                    return this.filterByAvailabilityNKIK3(data, odH, doH)
+                })
+            )
+            .pipe(
+                map((data8) => {
+                    czwartyWarunek2 = data8
+                    let wynik = this.computeContitions(
+                        pierwszyWarunek1,
+                        pierwszyWarunek2,
+                        drugiWarunek1,
+                        drugiWarunek2,
+                        trzeciWarunek1,
+                        trzeciWarunek2,
+                        czwartyWarunek1,
+                        czwartyWarunek2
+                    )
+                    console.log(wynik)
+                    let partWynik = wynik.map((element) => element.sala)
+                    return [...new Set(partWynik)]
+                })
+            )
+    }
 
-    //     private filterNumerSali(sale: Array<Sala>, numerSali: number): Array<Sala> {
-    //         let wyniki: Array<Sala> = []
-    //         for (let sala of sale) {
-    //             if (sala.numer === numerSali) {
-    //                 if (!wyniki.includes(sala)) {
-    //                     wyniki.push(sala)
-    //                 }
-    //             }
-    //         }
-    //         return wyniki
-    //     }
+    private computeContitions(
+        pier1: Array<any>,
+        pier2: Array<any>,
+        drug1: Array<any>,
+        drug2: Array<any>,
+        trz1: Array<any>,
+        trz2: Array<any>,
+        czt1: Array<any>,
+        czt2: Array<any>
+    ): Array<testRezerwacja> {
+        let wynik1: Array<testRezerwacja> = []
+        let wynik2: Array<testRezerwacja> = []
+        let wynik3: Array<testRezerwacja> = []
+        let wynik4: Array<testRezerwacja> = []
+        for (let rezerwacja1 of pier1) {
+            for (let rezerwacja2 of pier2) {
+                if (this.haveSameData(rezerwacja1, rezerwacja2)) {
+                    if (!wynik1.includes(rezerwacja1)) {
+                        wynik1.push(rezerwacja1)
+                    }
+                }
+            }
+        }
+        for (let rezerwacja1 of drug1) {
+            for (let rezerwacja2 of drug2) {
+                if (this.haveSameData(rezerwacja1, rezerwacja2)) {
+                    if (!wynik2.includes(rezerwacja1)) {
+                        wynik2.push(rezerwacja1)
+                    }
+                }
+            }
+        }
+        for (let rezerwacja1 of trz1) {
+            for (let rezerwacja2 of trz2) {
+                if (this.haveSameData(rezerwacja1, rezerwacja2)) {
+                    if (!wynik3.includes(rezerwacja1)) {
+                        wynik3.push(rezerwacja1)
+                    }
+                }
+            }
+        }
+        for (let rezerwacja1 of czt1) {
+            for (let rezerwacja2 of czt2) {
+                if (this.haveSameData(rezerwacja1, rezerwacja2)) {
+                    if (!wynik4.includes(rezerwacja1)) {
+                        wynik4.push(rezerwacja1)
+                    }
+                }
+            }
+        }
+        console.log(wynik1)
+        console.log(wynik2)
+        console.log(wynik3)
+        console.log(wynik4)
+        let wynikPosredni: Array<testRezerwacja> = [
+            ...wynik1,
+            ...wynik2,
+            ...wynik3,
+            ...wynik4,
+        ]
+        console.log(wynikPosredni)
+        let wynik = wynikPosredni.filter(
+            (thing, index, self) =>
+                index ===
+                self.findIndex(
+                    (t) =>
+                        t.sala === thing.sala &&
+                        t.uzytkownik === thing.uzytkownik &&
+                        t.poczatek === thing.poczatek &&
+                        t.koniec === thing.koniec
+                )
+        )
+        console.log(wynik)
+        return wynik
+    }
 
-    //     private filterDostepnosc(
-    //         sale: Array<Sala>,
-    //         data: string,
-    //         odGodzina: number,
-    //         doGodzina: number
-    //     ): Array<Sala> {
-    //         let wyniki: Array<Sala> = []
-    //         for (let sala of sale) {
-    //             let dateMach: boolean = false
-    //             for (let rezerwacja of sala.rezerwacje) {
-    //                 if (rezerwacja.date === data) {
-    //                     dateMach = true
-    //                 }
-    //             }
-    //             if (!dateMach) {
-    //                 if (!wyniki.includes(sala)) {
-    //                     wyniki.push(sala)
-    //                 }
-    //                 continue
-    //             }
-    //             let tempRezerwacja = sala.rezerwacje.find((element) => {
-    //                 element.date === data
-    //             })
-    //             let hourMach: boolean = false
-    //             for (let index = odGodzina - 7; index < doGodzina - 8; index++) {
-    //                 if (tempRezerwacja?.godziny[index].rezerwacjaUserID !== 0) {
-    //                     hourMach = true
-    //                     break
-    //                 }
-    //             }
-    //             if (!hourMach) {
-    //                 if (!wyniki.includes(sala)) {
-    //                     wyniki.push(sala)
-    //                 }
-    //             }
-    //         }
-    //         return wyniki
-    //     }
+    //pierwszy warunek
+    private filterByAvailabilityNKIP(
+        data: string,
+        odH: number,
+        doH: number
+    ): Observable<any> {
+        let rezerwacje = this.afs.collection('rezerwacje', (ref) => {
+            return ref.where('dzien', '==', data).where('poczatek', '<', doH)
+        })
+        return rezerwacje.valueChanges()
+    }
+    private filterByAvailabilityNKIK(
+        data: string,
+        odH: number,
+        doH: number
+    ): Observable<any> {
+        let rezerwacje = this.afs.collection('rezerwacje', (ref) => {
+            return ref.where('dzien', '==', data).where('koniec', '>=', doH)
+        })
+        return rezerwacje.valueChanges()
+    }
 
-    //     private filterWyposazenie(
-    //         sale: Array<Sala>,
-    //         wyposazenie: Array<string>
-    //     ): Array<Sala> {
-    //         let wyniki: Array<Sala> = []
-    //         for (let sala of sale) {
-    //             let isValid: boolean = true
-    //             for (let item in sala.eq) {
-    //                 if (!wyposazenie.includes(item) || !sala.eq[item]) {
-    //                     isValid = false
-    //                     break
-    //                 }
-    //             }
-    //             if (isValid) {
-    //                 if (!wyniki.includes(sala)) {
-    //                     wyniki.push(sala)
-    //                 }
-    //             }
-    //         }
-    //         return wyniki
-    //     }
+    //drugi warunek
+    private filterByAvailabilityNPIP(
+        data: string,
+        odH: number,
+        doH: number
+    ): Observable<any> {
+        let rezerwacje = this.afs.collection('rezerwacje', (ref) => {
+            return ref.where('dzien', '==', data).where('poczatek', '<=', odH)
+        })
+        return rezerwacje.valueChanges()
+    }
+    private filterByAvailabilityNKIK2(
+        data: string,
+        odH: number,
+        doH: number
+    ): Observable<any> {
+        let rezerwacje = this.afs.collection('rezerwacje', (ref) => {
+            return ref.where('dzien', '==', data).where('koniec', '>=', doH)
+        })
+        return rezerwacje.valueChanges()
+    }
+
+    //trzeci warunek
+    private filterByAvailabilityNPIP2(
+        data: string,
+        odH: number,
+        doH: number
+    ): Observable<any> {
+        let rezerwacje = this.afs.collection('rezerwacje', (ref) => {
+            return ref.where('dzien', '==', data).where('poczatek', '<=', odH)
+        })
+        return rezerwacje.valueChanges()
+    }
+    private filterByAvailabilityNPIK(
+        data: string,
+        odH: number,
+        doH: number
+    ): Observable<any> {
+        let rezerwacje = this.afs.collection('rezerwacje', (ref) => {
+            return ref.where('dzien', '==', data).where('koniec', '>', odH)
+        })
+        return rezerwacje.valueChanges()
+    }
+
+    //czwarty warunek
+    private filterByAvailabilityNPIP3(
+        data: string,
+        odH: number,
+        doH: number
+    ): Observable<any> {
+        let rezerwacje = this.afs.collection('rezerwacje', (ref) => {
+            return ref.where('dzien', '==', data).where('poczatek', '>', odH)
+        })
+        return rezerwacje.valueChanges()
+    }
+    private filterByAvailabilityNKIK3(
+        data: string,
+        odH: number,
+        doH: number
+    ): Observable<any> {
+        let rezerwacje = this.afs.collection('rezerwacje', (ref) => {
+            return ref.where('dzien', '==', data).where('koniec', '<', doH)
+        })
+        return rezerwacje.valueChanges()
+    }
+
+    private haveSameData = function (obj1: any, obj2: any) {
+        const obj1Length = Object.keys(obj1).length
+        const obj2Length = Object.keys(obj2).length
+
+        if (obj1Length === obj2Length) {
+            return Object.keys(obj1).every(
+                (key) => obj2.hasOwnProperty(key) && obj2[key] === obj1[key]
+            )
+        }
+        return false
+    }
 }
