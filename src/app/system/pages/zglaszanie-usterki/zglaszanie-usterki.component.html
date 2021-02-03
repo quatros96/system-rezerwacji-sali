@@ -1,36 +1,33 @@
-<div class="page-container">
+<form class="page-container" [formGroup]="usterkaForm">
     <h1>Zgłaszanie usterki w sali</h1>
     <span>Usterka</span>
     <mat-form-field appearance="fill">
         <mat-label>Podaj usterkę</mat-label>
-        <input matInput placeholder />
+        <input matInput placeholder formControlName="tytul" />
     </mat-form-field>
     <span>Jak poważna jest usterka?</span>
     <mat-form-field appearance="fill">
         <mat-label>Priorytet</mat-label>
-        <mat-select>
-            <mat-option
-                *ngFor="let priorytet of priorytety"
-                [value]="priorytet.value"
-                >{{ priorytet.viewValue }}</mat-option
-            >
+        <mat-select formControlName="priorytet">
+            <mat-option *ngFor="let priorytet of priorytety" [value]="priorytet.value">{{ priorytet.viewValue }}
+            </mat-option>
         </mat-select>
     </mat-form-field>
-    <!-- <mat-form-field appearance="fill">
-        <mat-label>Favorite food</mat-label>
-        <mat-select>
-            <mat-option [value]="'test'"> test </mat-option>
+    <mat-form-field appearance="fill">
+        <mat-label>Dotyczy</mat-label>
+        <mat-select formControlName="eq">
+            <mat-option *ngFor="let item of wyposazenie" [value]="item.value">
+                {{ item.viewValue }}
+            </mat-option>
         </mat-select>
-    </mat-form-field> -->
+    </mat-form-field>
     <span>Opis usterki</span>
     <mat-form-field appearance="fill" class="max-width">
         <mat-label>Opis</mat-label>
-        <textarea
-            matInput
-            placeholder="Szczegółowy opis usterki"
-            cdkTextareaAutosize
-            cdkAutosizeMinRows="5"
-        ></textarea>
+        <textarea matInput placeholder="Szczegółowy opis usterki" cdkTextareaAutosize cdkAutosizeMinRows="5"
+            formControlName="opis"></textarea>
     </mat-form-field>
-    <button mat-raised-button>Potwierdź zgłoszenie usterki</button>
-</div>
+    <button mat-raised-button type="button" (click)="zglosUsterke()" [disabled]="usterkaForm.invalid">Potwierdź
+        zgłoszenie
+        usterki</button>
+</form>

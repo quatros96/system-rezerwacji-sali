@@ -1,11 +1,11 @@
 <div class="page-container">
     <h1>Sukces!</h1>
     <h2>
-        Pomyślnie zarezerwowano salę nr (numer sali) w godzinach (godziny) dnia
-        (dzień)
+        Pomyślnie zarezerwowano salę nr {{dane.numer}} w godzinach {{dane.poczatek}}-{{dane.koniec}} dnia
+        {{dane.dzien}}
     </h2>
     <div>
         <mat-icon>check_circle</mat-icon>
     </div>
-    <button mat-raised-button>Powrót do poprzedniego ekranu</button>
+    <button mat-raised-button [routerLink]="['/wyszukiwarka-sal']">Powrót do poprzedniego ekranu</button>
 </div>

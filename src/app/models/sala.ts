@@ -7,4 +7,5 @@ export interface Sala {
     pojemnosc: number
     typ: string
     wydzial: string
+    iddoc?: string
 }
