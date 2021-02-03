@@ -4,8 +4,9 @@ import {
     AngularFirestoreCollection,
     AngularFirestoreDocument,
 } from '@angular/fire/firestore'
+import { Usterka } from 'app/models/usterka'
 import { Observable, of, pipe } from 'rxjs'
-import { map, mergeMap } from 'rxjs/operators'
+import { concatMap, map, mergeMap } from 'rxjs/operators'
 import { Sala } from '../../models/sala'
 
 interface rezerwacjaUzytkownika {
@@ -22,7 +23,7 @@ export interface testRezerwacja {
     poczatek: number
     koniec: number
     uzytkownik: number
-    sala_nr: number
+    sala_nr: string
     wydzial: string
     sala: string
     id?: string
@@ -65,11 +66,52 @@ export class DataBaseService {
         this.afs.doc(`rezerwacje/${idRezerwacji}`).delete()
     }
 
+    public reportIssue(sala: Sala, usterka: Usterka): void {
+        this.afs.collection(`sale/${sala.iddoc}/usterki`).add(usterka)
+    }
+
+    public addIssueToRoom(salaId: string, item: string): void {
+        if (item === 'klima') {
+            this.afs.doc(`sale/${salaId}`).update({ 'eq.klima': false })
+        } else if (item === 'tablica') {
+            this.afs.doc(`sale/${salaId}`).update({ 'eq.tablica': false })
+        } else if (item === 'rzutnik') {
+            this.afs.doc(`sale/${salaId}`).update({ 'eq.rzutnik': false })
+        } else {
+            this.afs.doc(`sale/${salaId}`).update({ 'eq.komputer': false })
+        }
+        console.log('Added issue')
+    }
+
+    public addReservation(
+        sala: Sala,
+        user: number,
+        dzien: string,
+        odH: number,
+        doH: number
+    ) {
+        let rezerwacja: testRezerwacja = {
+            dzien: dzien,
+            poczatek: odH,
+            koniec: doH,
+            sala: sala.id,
+            sala_nr: sala.numer,
+            uzytkownik: user,
+            wydzial: sala.wydzial,
+        }
+        const rezerwacje = this.afs.collection('rezerwacje')
+        rezerwacje.add(rezerwacja)
+    }
+
     public searchForRoom(
         wydzial: string,
         typSali: string,
         pojemnosc: number,
-        numerSali: string
+        numerSali: string,
+        rzutnik: boolean,
+        tablica: boolean,
+        komputer: boolean,
+        klima: boolean
     ): Observable<any> {
         let sale = this.afs
             .collection('sale', (ref) => {
@@ -87,9 +129,21 @@ export class DataBaseService {
                 if (numerSali) {
                     query = query.where('numer', '==', numerSali)
                 }
+                if (rzutnik) {
+                    query = query.where('eq.rzutnik', '==', true)
+                }
+                if (tablica) {
+                    query = query.where('eq.tablica', '==', true)
+                }
+                if (komputer) {
+                    query = query.where('eq.komputer', '==', true)
+                }
+                if (klima) {
+                    query = query.where('eq.klima', '==', true)
+                }
                 return query
             })
-            .valueChanges()
+            .valueChanges({ idField: 'iddoc' })
         return sale
     }
 
@@ -109,32 +163,39 @@ export class DataBaseService {
 
         return this.filterByAvailabilityNKIP(data, odH, doH)
             .pipe(
-                mergeMap((data1) => {
+                concatMap((data1) => {
                     pierwszyWarunek1 = data1
+                    console.log('1')
                     return this.filterByAvailabilityNKIK(data, odH, doH)
                 }),
-                mergeMap((data2) => {
+                concatMap((data2) => {
                     pierwszyWarunek2 = data2
+                    console.log('2')
                     return this.filterByAvailabilityNPIP(data, odH, doH)
                 }),
-                mergeMap((data3) => {
+                concatMap((data3) => {
                     drugiWarunek1 = data3
+                    console.log('3')
                     return this.filterByAvailabilityNKIK2(data, odH, doH)
                 }),
-                mergeMap((data4) => {
+                concatMap((data4) => {
                     drugiWarunek2 = data4
+                    console.log('4')
                     return this.filterByAvailabilityNPIP2(data, odH, doH)
                 }),
-                mergeMap((data5) => {
+                concatMap((data5) => {
                     trzeciWarunek1 = data5
+                    console.log('5')
                     return this.filterByAvailabilityNPIK(data, odH, doH)
                 }),
-                mergeMap((data6) => {
+                concatMap((data6) => {
                     trzeciWarunek2 = data6
+                    console.log('6')
                     return this.filterByAvailabilityNPIP3(data, odH, doH)
                 }),
-                mergeMap((data7) => {
+                concatMap((data7) => {
                     czwartyWarunek1 = data7
+                    console.log('7')
                     return this.filterByAvailabilityNKIK3(data, odH, doH)
                 })
             )

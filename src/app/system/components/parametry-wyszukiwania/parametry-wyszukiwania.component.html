@@ -1,4 +1,5 @@
 <form [formGroup]="wyszukiwanieForm">
+    <h2>Szukaj sali po wybranych parametrach</h2>
     <section>
         <mat-form-field appearance="fill">
             <mat-label>Wydział</mat-label>
@@ -8,7 +9,6 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-
         <mat-form-field appearance="fill">
             <mat-label>Typ sali</mat-label>
             <mat-select formControlName="typSali">
@@ -18,38 +18,30 @@
             </mat-select>
         </mat-form-field>
     </section>
-    <h2>Pojemoność</h2>
     <section>
-        <div id="od">
-            <p>Od</p>
-            <mat-form-field class="comboboxLiczba" appearance="fill">
-                <mat-label>Liczba</mat-label>
-                <input matInput formControlName="pojemnosc" type="number" placeholder="" value="" />
-            </mat-form-field>
-        </div>
-    </section>
-    <h2>Nr sali</h2>
-    <section>
-        <mat-form-field class="nrSali" appearance="fill">
-            <mat-label>Nr sali</mat-label>
-            <input matInput formControlName="numerSali" placeholder="" value="" />
+        <mat-form-field appearance="fill">
+            <mat-label>Minimalna pojemność</mat-label>
+            <input matInput formControlName="pojemnosc" type="number" placeholder="" value="" />
         </mat-form-field>
     </section>
-    <h2>Data</h2>
+    <section>
+        <mat-form-field appearance="fill">
+            <mat-label>Numer sali</mat-label>
+            <input matInput formControlName="numerSali" autocomplete="off" name="numer-sali" />
+        </mat-form-field>
+    </section>
     <section>
         <div id="data">
-            <p>data</p>
-            <mat-form-field class="dataField" appearance="fill">
-                <mat-label>Choose a date</mat-label>
+            <mat-form-field class="dzien" appearance="fill">
+                <mat-label>Dzień rezerwacji</mat-label>
                 <input matInput formControlName="data" [matDatepicker]="picker" />
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
         </div>
         <div id="odData">
-            <p>Od</p>
-            <mat-form-field class="comboboxLiczbaPojemnosc" appearance="fill">
-                <mat-label>Godzina</mat-label>
+            <mat-form-field class="godzina" appearance="fill">
+                <mat-label>Godzina od</mat-label>
                 <mat-select formControlName="godzinaOd">
                     <mat-option *ngFor="let liczby of zbior" [value]="liczby.value">
                         {{ liczby.viewValue }}
@@ -58,9 +50,8 @@
             </mat-form-field>
         </div>
         <div id="doData">
-            <p>Do</p>
-            <mat-form-field class="comboboxLiczbaPojemnosc" appearance="fill">
-                <mat-label>Godzina</mat-label>
+            <mat-form-field class="godzina" appearance="fill">
+                <mat-label>Godzina do</mat-label>
                 <mat-select formControlName="godzinaDo">
                     <mat-option *ngFor="let liczby of zbior" [value]="liczby.value">
                         {{ liczby.viewValue }}
@@ -69,24 +60,12 @@
             </mat-form-field>
         </div>
     </section>
-    <section>
-        <div id="checkBox">
-            <h2>Wyposazenie</h2>
-            <section class="checkBox">
-                <mat-checkbox formControlName="rzutnik" class="checkBoxRzutnik">Rzutnik</mat-checkbox>
-            </section>
-            <section class="checkBox">
-                <mat-checkbox formControlName="klimatyzacja" class="checkBoxKlimatyzacjian">Klimatyzacjia</mat-checkbox>
-            </section>
-            <section class="checkBox">
-                <mat-checkbox formControlName="komputer" class="checkBoxKomputer">Komputer</mat-checkbox>
-            </section>
-            <section class="checkBox">
-                <mat-checkbox formControlName="tablica" class="checkBoxTablica">Tablica</mat-checkbox>
-            </section>
-        </div>
-        <div id="buttonWyszukaj">
-            <button class="buttonWyszukaj" mat-raised-button (click)="wyszukajSale()">Wyszukaj</button>
-        </div>
+    <section id="checkBoxy">
+        <h3>Wymagane wyposażenie</h3>
+        <mat-checkbox formControlName="rzutnik" class="checkBoxRzutnik">Rzutnik</mat-checkbox>
+        <mat-checkbox formControlName="klimatyzacja" class="checkBoxKlimatyzacjian">Klimatyzacjia</mat-checkbox>
+        <mat-checkbox formControlName="komputer" class="checkBoxKomputer">Komputer</mat-checkbox>
+        <mat-checkbox formControlName="tablica" class="checkBoxTablica">Tablica</mat-checkbox>
     </section>
+    <button class="buttonWyszukaj" mat-raised-button (click)="wyszukajSale()">Wyszukaj</button>
 </form>

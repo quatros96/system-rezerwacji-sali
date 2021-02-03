@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { Sala } from 'app/models/sala'
 import {
     DataBaseService,
     testRezerwacja,
 } from '../../../core/services/data-base.service'
 import { FormBuilder } from '@angular/forms'
-import { DataStoreService } from '../../../core/services/data-store.service'
+import {
+    DataStoreService,
+    Data,
+} from '../../../core/services/data-store.service'
 import { Subscription } from 'rxjs'
 
 interface wydzialy {
@@ -29,7 +32,7 @@ interface liczby {
     styleUrls: ['./parametry-wyszukiwania.component.less'],
     providers: [],
 })
-export class ParametryWyszukiwaniaComponent implements OnInit {
+export class ParametryWyszukiwaniaComponent implements OnInit, OnDestroy {
     wydzialyy: wydzialy[] = [
         { value: 'Mechatroniki', viewValue: 'Mechatroniki' },
         {
@@ -59,6 +62,7 @@ export class ParametryWyszukiwaniaComponent implements OnInit {
         { value: 19, viewValue: 19 },
         { value: 20, viewValue: 20 },
     ]
+    private subscription: Subscription = new Subscription()
     constructor(
         private dataBase: DataBaseService,
         private fb: FormBuilder,
@@ -116,6 +120,9 @@ export class ParametryWyszukiwaniaComponent implements OnInit {
     }
 
     ngOnInit(): void {}
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe()
+    }
 
     public wyszukajSale(): void {
         console.log(this.wydzial?.value)
@@ -129,44 +136,59 @@ export class ParametryWyszukiwaniaComponent implements OnInit {
         console.log(this.klimatyzacja?.value)
         console.log(this.komputer?.value)
         console.log(this.tablica?.value)
-        this.dataBase
-            .searchForRoom(
-                this.wydzial?.value,
-                this.typSali?.value,
-                this.pojemnosc?.value,
-                this.numerSali?.value
-            )
-            .subscribe((data) => {
-                if (
-                    this.data?.value &&
-                    this.godzinaOd?.value &&
-                    this.godzinaDo?.value
-                ) {
-                    console.log('uwzgledniono daty')
-                    let dataRezerwacji = new Date(
-                        this.data?.value
-                    ).toLocaleDateString('en-GB')
-                    this.dataBase
-                        .filterReservationsByDayAndTime(
-                            String(dataRezerwacji),
-                            Number(this.godzinaOd.value),
-                            Number(this.godzinaDo.value)
-                        )
-                        .subscribe((bannedIDs) => {
-                            console.log('bannedID', bannedIDs)
-                            this.wynikiTabela = this.getAvailableRooms(
-                                data,
-                                bannedIDs
+        this.subscription.add(
+            this.dataBase
+                .searchForRoom(
+                    this.wydzial?.value,
+                    this.typSali?.value,
+                    this.pojemnosc?.value,
+                    this.numerSali?.value,
+                    this.rzutnik?.value,
+                    this.tablica?.value,
+                    this.komputer?.value,
+                    this.klimatyzacja?.value
+                )
+                .subscribe((data) => {
+                    if (
+                        this.data?.value &&
+                        this.godzinaOd?.value &&
+                        this.godzinaDo?.value
+                    ) {
+                        console.log('uwzgledniono daty')
+                        let dataRezerwacji = new Date(
+                            this.data?.value
+                        ).toLocaleDateString('en-GB')
+                        this.dataBase
+                            .filterReservationsByDayAndTime(
+                                String(dataRezerwacji),
+                                Number(this.godzinaOd.value),
+                                Number(this.godzinaDo.value)
                             )
-                            console.log('wyniki do tabeli', this.wynikiTabela)
-                            this.dataStore.changeMessage(this.wynikiTabela)
-                        })
-                } else {
-                    console.log('bez daty')
-                    this.wynikiTabela = data
-                    this.dataStore.changeMessage(this.wynikiTabela)
-                }
-            })
+                            .subscribe((bannedIDs) => {
+                                console.log('bannedID', bannedIDs)
+                                this.wynikiTabela = this.getAvailableRooms(
+                                    data,
+                                    bannedIDs
+                                )
+                                console.log(
+                                    'wyniki do tabeli',
+                                    this.wynikiTabela
+                                )
+                                let dataRes: Data = {
+                                    dzien: String(dataRezerwacji),
+                                    poczatek: Number(this.godzinaOd?.value),
+                                    koniec: Number(this.godzinaDo?.value),
+                                }
+                                this.dataStore.changeMessage(this.wynikiTabela)
+                                this.dataStore.changeData(dataRes)
+                            })
+                    } else {
+                        console.log('bez daty')
+                        this.wynikiTabela = data
+                        this.dataStore.changeMessage(this.wynikiTabela)
+                    }
+                })
+        )
     }
 
     public getAvailableRooms(

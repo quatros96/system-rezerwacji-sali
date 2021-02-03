@@ -2,19 +2,19 @@
 <div class="informacje">
     <div class="wydzial flex-container">
         <span class="info-type">Wydział:</span>
-        <span>Mechatroniki</span>
+        <span>{{sala?.wydzial}}</span>
     </div>
     <div class="instytut flex-container">
-        <span class="info-type">Instytut:</span>
-        <span></span>
+        <span class="info-type">Typ:</span>
+        <span>{{sala?.typ}}</span>
     </div>
     <div class="opiekun flex-container">
-        <span class="info-type">Opiekun:</span>
-        <span></span>
+        <span class="info-type">Pojemność:</span>
+        <span>{{sala?.pojemnosc}}</span>
     </div>
     <div class="wyposazenie flex-container">
-        <span class="info-type">Wyposażenie:</span>
-        <span></span>
+        <span class="info-type">Numer:</span>
+        <span>{{sala?.numer}}</span>
     </div>
     <div class="usterki flex-container">
         <span class="info-type">Usterki:</span>
@@ -23,6 +23,7 @@
 </div>
 <h2>Akcje</h2>
 <div class="przyciski">
-    <button mat-raised-button>Zgłoś usterkę</button>
+    <button mat-raised-button [routerLink]="['/zglaszanie-usterki']" [state]="{salaDoUsterki: sala}">Zgłoś
+        usterkę</button>
     <button mat-raised-button>Dodaj dostęp użytkownikowi</button>
 </div>

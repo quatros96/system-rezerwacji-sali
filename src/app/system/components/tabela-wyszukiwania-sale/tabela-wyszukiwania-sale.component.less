@@ -1,21 +1,27 @@
-table {
-    margin-bottom: 32px;
+main {
+    margin-left: 32px;
     margin-right: 32px;
-    width: 500px;
-}
+    width: fit-content;
 
-p {
-    margin-bottom: 32px;
-    margin-right: 32px;
-    width: 500px;
-}
-
-h2 {
-    margin-bottom: 32px;
-    margin-right: 32px;
-    width: 500px;
-}
-
-srs-tabela-wyszukiwania-sale {
-    width: 500px;
+    h3 {
+        color: red;
+        text-align: center;
+        margin-top: 32px;
+        padding-right: 32px;
+    }
+    .table-container {
+        max-height: 600px;
+        overflow: auto;
+        padding: 16px 8px;
+    }
+    table {
+        margin-bottom: 32px;
+        width: 780px;
+        .cell-button {
+            margin-right: 32px;
+        }
+        .expand {
+            width: 20%;
+        }
+    }
 }
